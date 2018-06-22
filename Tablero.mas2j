@@ -1,0 +1,23 @@
+/* Jason Project */
+
+
+
+MAS entrega {
+
+
+
+    infrastructure: Centralised
+	environment: Tablero
+
+
+    agents:
+
+        judge;
+
+        player1;
+
+        player2;
+
+}
+
+
