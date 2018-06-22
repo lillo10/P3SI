@@ -77,19 +77,6 @@ generationPoints(ip,2).
 generationPoints(gs,4).
 generationPoints(co,6).
 generationPoints(ct,8).
-generationPoints(ip2,10).//No se que puntuacion  poner
-generationPoints(gs2,12).
-generationPoints(co2,14).
-generationPoints(ct2,16).
-generationPoints(ipgs,18).
-generationPoints(cogs,20).
-generationPoints(ipco,22).
-generationPoints(ipct,24).
-generationPoints(cogs,26).
-generationPoints(gsct,28).
-generationPoints(coct,30).
-
-
 
 //Comprobacion completa de las condiciones de un movimiento correcto: Seleccion, movimiento y color
 movimientoValido(pos(X,Y),Dir):- tablero(celda(X,Y,_),ficha(COrigen,_)) & validacion(X,Y,Dir,COrigen).
