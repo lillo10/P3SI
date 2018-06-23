@@ -77,17 +77,7 @@ generationPoints(ip,2).
 generationPoints(gs,4).
 generationPoints(co,6).
 generationPoints(ct,8).
-generationPoints(ip2,10).//No se que puntuacion  poner
-generationPoints(gs2,12).
-generationPoints(co2,14).
-generationPoints(ct2,16).
-generationPoints(ipgs,18).
-generationPoints(cogs,20).
-generationPoints(ipco,22).
-generationPoints(ipct,24).
-generationPoints(cogs,26).
-generationPoints(gsct,28).
-generationPoints(coct,30).
+
 
 
 
@@ -130,9 +120,20 @@ nextPosition(P1,P2,Dir,NX,NY):-
 //A PARTIR DE AQUI HAY QUE AÃ‘ADIR LOS NUEVOS PATRONES RELATIVOS 
 //A LOS NUEVOS INTERCAMBIOS ENTRE FICHAS ESPECIALES
 
-
+//AQUI NO SE SI AÑADIR TIPO Y QUEDARIA LA FUNCION ASI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//comprobarPatrones(Color,Tipo,X,Y,StartsAtX,StartAtY,Direction,Pattern)!!!!!!!!!!!!!!
 comprobarPatrones(Color,X,Y,StartsAtX,StartAtY,Direction,Pattern) :-
-	((pattern5inLineW(Color,X,Y,StartsAtX,StartAtY) & Pattern = "5inLineW" & Direction="none") |
+	((patternCoCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Coct" & Direction="none") |
+	(patternGsCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "GsCt" & Direction="none") |
+	(patternIpCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpCt" & Direction="none") |
+	(patternIpCo(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpCo" & Direction="none") |
+	(patternCogs(Color,X,Y,StartsAtX,StartAtY) & Pattern = "CoGs" & Direction="none") |
+	(patternIpGs(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpGs" & Direction="none") |
+	(patternCt2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Ct2" & Direction="none") |
+	(patternCo2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Co2" & Direction="none") |
+	(patternGs2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Gs2" & Direction="none") |
+	(patternIp2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Ip2" & Direction="none")|
+	(pattern5inLineW(Color,X,Y,StartsAtX,StartAtY) & Pattern = "5inLineW" & Direction="none") |
 	(pattern5inLineH(Color,X,Y,StartsAtX,StartAtY) & Pattern = "5inLineH" & Direction="none") |
 	(patternT(Color,X,Y,Direction) & Pattern = "T" & StartAtY = Y & StartsAtX = X) |
 	(patternSquare(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Square" & Direction="none") |
@@ -141,8 +142,256 @@ comprobarPatrones(Color,X,Y,StartsAtX,StartAtY,Direction,Pattern) :-
 	(pattern3inLineW(Color,X,Y,StartsAtX,StartAtY) & Pattern = "3inLineW" & Direction="none") |
 	(pattern3inLineH(Color,X,Y,StartsAtX,StartAtY) & Pattern = "3inLineH" & Direction="none") |
 	(Pattern = "none" & StartsAtX = X & StartAtY = Y & Direction="none")).
+	
+	//patternCoCt(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternCoCt(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternGsCt(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternGsCt(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternIpCt(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternIpCt(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternIpCo(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternIpCo(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternCoGs(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternCoGs(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternIpGs(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternIpGs(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternCt2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternCt2(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternCo2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternCo2(Color,X,Y,StartsAtX,StartAtY):-
+	/*(tablero(celda(X,Y+1,_),ficha(Color,_)) &	// (tablero(celda(X,Y+1,_),ficha(Color,Tipo)) &
+	StartAtY = Y & StartsAtX = X)|
+	(tablero(celda(X,Y-1,_),ficha(Color,_)) &  // (tablero(celda(X,Y-1,_),ficha(Color,Tipo)) &
+	StartAtY = Y & StartsAtX = X)|
+	(tablero(celda(X+1,Y,_),ficha(Color,_)) &	// (tablero(celda(X+1,Y+1,_),ficha(Color,Tipo)) &
+	StartAtY = Y & StartsAtX = X)|
+	(tablero(celda(X-1,Y,_),ficha(Color,_)) &	// (tablero(celda(X-1,Y,_),ficha(Color,Tipo)) &
+	StartAtY = Y & StartsAtX = X). esta mal*/
+	
+	//patternGs2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternGs2(Color,X,Y,StartsAtX,StartAtY):-
+	
+	
+	//patternIp2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
+	patternIp2(Color,X,Y,StartsAtX,StartAtY):-
+	
+	(tablero(celda(X,Y+1,_),ficha(Color,_)) & // (tablero(celda(X,Y+1,_),ficha(Color,Tipo)) 
+	tablero(celda(X,Y+2,_),ficha(Color,_)) &
+	tablero(celda(X,Y+3,_),ficha(Color,_)) &
+	tablero(celda(X,Y+4,_),ficha(Color,_)) &
+	tablero(celda(X,Y+5,_),ficha(Color,_)) &
+	tablero(celda(X,Y+6,_),ficha(Color,_)) &
+	tablero(celda(X,Y+7,_),ficha(Color,_)) &
+	tablero(celda(X,Y+8,_),ficha(Color,_)) &
+	tablero(celda(X,Y+9,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-9,_),ficha(Color,_)) &
+	tablero(celda(X,Y-8,_),ficha(Color,_)) &
+	tablero(celda(X,Y-7,_),ficha(Color,_)) &
+	tablero(celda(X,Y-6,_),ficha(Color,_)) &
+	tablero(celda(X,Y-5,_),ficha(Color,_)) &
+	tablero(celda(X,Y-4,_),ficha(Color,_)) &
+	tablero(celda(X,Y-3,_),ficha(Color,_)) &
+	tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) & StartAtY = (Y-9) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-8,_),ficha(Color,_)) &
+	tablero(celda(X,Y-7,_),ficha(Color,_)) &
+	tablero(celda(X,Y-6,_),ficha(Color,_)) &
+	tablero(celda(X,Y-5,_),ficha(Color,_)) &
+	tablero(celda(X,Y-4,_),ficha(Color,_)) &
+	tablero(celda(X,Y-3,_),ficha(Color,_)) &
+	tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) & StartAtY = (Y-8) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-7,_),ficha(Color,_)) &
+	tablero(celda(X,Y-6,_),ficha(Color,_)) &
+	tablero(celda(X,Y-5,_),ficha(Color,_)) &
+	tablero(celda(X,Y-4,_),ficha(Color,_)) &
+	tablero(celda(X,Y-3,_),ficha(Color,_)) &
+	tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+2,_),ficha(Color,_)) & StartAtY = (Y-7) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-6,_),ficha(Color,_)) &
+	tablero(celda(X,Y-5,_),ficha(Color,_)) &
+	tablero(celda(X,Y-4,_),ficha(Color,_)) &
+	tablero(celda(X,Y-3,_),ficha(Color,_)) &
+	tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+3,_),ficha(Color,_)) & StartAtY = (Y-6) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-5,_),ficha(Color,_)) &
+	tablero(celda(X,Y-4,_),ficha(Color,_)) &
+	tablero(celda(X,Y-3,_),ficha(Color,_)) &
+	tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+3,_),ficha(Color,_)) &
+	tablero(celda(X,Y+4,_),ficha(Color,_)) & StartAtY = (Y-5) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-4,_),ficha(Color,_)) &
+	tablero(celda(X,Y-3,_),ficha(Color,_)) &
+	tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+3,_),ficha(Color,_)) &
+	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+5,_),ficha(Color,_)) & StartAtY = (Y-4) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-3,_),ficha(Color,_)) &
+	tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+3,_),ficha(Color,_)) &
+	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+5,_),ficha(Color,_)) &
+	tablero(celda(X,Y+6,_),ficha(Color,_)) & StartAtY = (Y-3) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-2,_),ficha(Color,_)) &
+	tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+3,_),ficha(Color,_)) &
+	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+5,_),ficha(Color,_)) &
+	tablero(celda(X,Y+6,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+7,_),ficha(Color,_)) & StartAtY = (Y-2) & StartsAtX = X) |
+	
+	(tablero(celda(X,Y-1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+1,_),ficha(Color,_)) &
+	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+3,_),ficha(Color,_)) &
+	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+5,_),ficha(Color,_)) &
+	tablero(celda(X,Y+6,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+7,_),ficha(Color,_)) & 
+	tablero(celda(X,Y+8,_),ficha(Color,_)) & StartAtY = (Y-1) & StartsAtX = X).
+	
+	(tablero(celda(X+1,Y,_),ficha(Color,_)) & // (tablero(celda(X,Y+1,_),ficha(Color,Tipo)) 
+	tablero(celda(X+2,Y,_),ficha(Color,_)) &
+	tablero(celda(X+3,Y,_),ficha(Color,_)) &
+	tablero(celda(X+4,Y,_),ficha(Color,_)) &
+	tablero(celda(X+5,Y,_),ficha(Color,_)) &
+	tablero(celda(X+6,Y,_),ficha(Color,_)) &
+	tablero(celda(X+7,Y,_),ficha(Color,_)) &
+	tablero(celda(X+8,Y,_),ficha(Color,_)) &
+	tablero(celda(X+9,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = X) |
+	
+	(tablero(celda(X-9,Y,_),ficha(Color,_)) &
+	tablero(celda(X-8,Y,_),ficha(Color,_)) &
+	tablero(celda(X-7,Y,_),ficha(Color,_)) &
+	tablero(celda(X-6,Y,_),ficha(Color,_)) &
+	tablero(celda(X-5,Y,_),ficha(Color,_)) &
+	tablero(celda(X-4,Y,_),ficha(Color,_)) &
+	tablero(celda(X-3,Y,_),ficha(Color,_)) &
+	tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) & StartAtY = Y) & StartsAtX = (X-9)) |
+	
+	(tablero(celda(X-8,Y,_),ficha(Color,_)) &
+	tablero(celda(X-7,Y,_),ficha(Color,_)) &
+	tablero(celda(X-6,Y,_),ficha(Color,_)) &
+	tablero(celda(X-5,Y,_),ficha(Color,_)) &
+	tablero(celda(X-4,Y,_),ficha(Color,_)) &
+	tablero(celda(X-3,Y,_),ficha(Color,_)) &
+	tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-8)) |
+	
+	(tablero(celda(X-7,Y,_),ficha(Color,_)) &
+	tablero(celda(X-6,Y,_),ficha(Color,_)) &
+	tablero(celda(X-5,Y,_),ficha(Color,_)) &
+	tablero(celda(X-4,Y,_),ficha(Color,_)) &
+	tablero(celda(X-3,Y,_),ficha(Color,_)) &
+	tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+2,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-7)) |
+	
+	(tablero(celda(X-6,Y,_),ficha(Color,_)) &
+	tablero(celda(X-5,Y,_),ficha(Color,_)) &
+	tablero(celda(X-4,Y,_),ficha(Color,_)) &
+	tablero(celda(X-3,Y,_),ficha(Color,_)) &
+	tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+3,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-6) |
+	
+	(tablero(celda(X-5,Y,_),ficha(Color,_)) &
+	tablero(celda(X-4,Y,_),ficha(Color,_)) &
+	tablero(celda(X-3,Y,_),ficha(Color,_)) &
+	tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+3,Y,_),ficha(Color,_)) &
+	tablero(celda(X+4,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-5) |
+	
+	(tablero(celda(X-4,Y,_),ficha(Color,_)) &
+	tablero(celda(X-3,Y,_),ficha(Color,_)) &
+	tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+3,Y,_),ficha(Color,_)) &
+	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+5,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-4) |
+	
+	(tablero(celda(X-3,Y,_),ficha(Color,_)) &
+	tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+3,Y,_),ficha(Color,_)) &
+	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+5,Y,_),ficha(Color,_)) &
+	tablero(celda(X+6,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-3)) |
+	
+	(tablero(celda(X-2,Y,_),ficha(Color,_)) &
+	tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+3,Y,_),ficha(Color,_)) &
+	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+5,Y,_),ficha(Color,_)) &
+	tablero(celda(X+6,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+7,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-2)) |
+	
+	(tablero(celda(X-1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+1,Y,_),ficha(Color,_)) &
+	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+3,Y,_),ficha(Color,_)) &
+	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+5,Y,_),ficha(Color,_)) &
+	tablero(celda(X+6,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+7,Y,_),ficha(Color,_)) & 
+	tablero(celda(X+8,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-1)).
+	
+	
 
-
+	
 pattern5inLineH(Color,X,Y,StartsAtX,StartAtY) :-
 	(tablero(celda(X,Y+1,_),ficha(Color,_)) &
 	tablero(celda(X,Y+2,_),ficha(Color,_)) &
@@ -937,6 +1186,316 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 +!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "T"<-
 	!handleT(Color,StartsAtX,StartsAtY,Direction,Pattern).
 
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Ip2"<-
+		delete(Color,StartsAtX,StartsAtY);
+		delete(Color,StartsAtX+1,StartsAtY);
+		delete(Color,StartsAtX+2,StartsAtY);
+		delete(Color,StartsAtX+3,StartsAtY);
+		delete(Color,StartsAtX+4,StartsAtY);
+		delete(Color,StartsAtX+5,StartsAtY);
+		delete(Color,StartsAtX+6,StartsAtY);
+		delete(Color,StartsAtX+7,StartsAtY);
+		delete(Color,StartsAtX+8,StartsAtY);
+		delete(Color,StartsAtX+9,StartsAtY);
+		delete(Color,StartsAtX,StartsAtY+1);
+		delete(Color,StartsAtX,StartsAtY+2);
+		delete(Color,StartsAtX,StartsAtY+3);
+		delete(Color,StartsAtX,StartsAtY)+4;
+		delete(Color,StartsAtX,StartsAtY+5);
+		delete(Color,StartsAtX,StartsAtY+6);
+		delete(Color,StartsAtX,StartsAtY+7);
+		delete(Color,StartsAtX,StartsAtY+8);
+		delete(Color,StartsAtX,StartsAtY+9);
+		
+		!explosion(StartsAtX,StartsAtY);
+		!explosion(StartsAtX+1,StartsAtY);
+		!explosion(StartsAtX+2,StartsAtY);
+		!explosion(StartsAtX+3,StartsAtY);
+		!explosion(StartsAtX+4,StartsAtY);
+		!explosion(StartsAtX+5,StartsAtY);
+		!explosion(StartsAtX+6,StartsAtY);
+		!explosion(StartsAtX+7,StartsAtY);
+		!explosion(StartsAtX+8,StartsAtY);
+		!explosion(StartsAtX+9,StartsAtY);
+		!explosion(StartsAtX,StartsAtY+1);
+		!explosion(StartsAtX,StartsAtY+2);
+		!explosion(StartsAtX,StartsAtY+3);
+		!explosion(StartsAtX,StartsAtY+4);
+		!explosion(StartsAtX,StartsAtY+5);
+		!explosion(StartsAtX,StartsAtY+6);
+		!explosion(StartsAtX,StartsAtY+7);
+		!explosion(StartsAtX,StartsAtY+8);
+		!explosion(StartsAtX,StartsAtY+9).
+		
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Gs2"<-
+
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Co2"<-
+		delete(Color,StartsAtX,StartsAtY);
+		delete(Color,StartsAtX+1,StartsAtY);
+		delete(Color,StartsAtX,StartsAtY+1);
+		delete(Color,StartsAtX+1,StartsAtY+1);
+		delete(Color,StartsAtX+2,StartsAtY);
+		delete(Color,StartsAtX+2,StartsAtY+1);
+		delete(Color,StartsAtX,StartsAtY+2);
+		delete(Color,StartsAtX+1,StartsAtY+2);
+		delete(Color,StartsAtX+2,StartsAtY+2);
+		delete(Color,StartsAtX+3,StartsAtY);
+		delete(Color,StartsAtX+3,StartsAtY+1);
+		delete(Color,StartsAtX+3,StartsAtY+2);
+		delete(Color,StartsAtX,StartsAtY+3);
+		delete(Color,StartsAtX+1,StartsAtY+3);
+		delete(Color,StartsAtX+2,StartsAtY+3);
+		delete(Color,StartsAtX+3,StartsAtY+3);
+		delete(Color,StartsAtX+4,StartsAtY);
+		delete(Color,StartsAtX+4,StartsAtY+1);
+		delete(Color,StartsAtX+4,StartsAtY+2);
+		delete(Color,StartsAtX+4,StartsAtY+3);
+		delete(Color,StartsAtX,StartsAtY+4);
+		delete(Color,StartsAtX+1,StartsAtY+4);
+		delete(Color,StartsAtX+2,StartsAtY+4);
+		delete(Color,StartsAtX+3,StartsAtY+4);
+		delete(Color,StartsAtX+4,StartsAtY+4);
+
+		!explosion(Color,StartsAtX,StartsAtY);
+		!explosion(Color,StartsAtX+1,StartsAtY);
+		!explosion(Color,StartsAtX,StartsAtY+1);
+		!explosion(Color,StartsAtX+1,StartsAtY+1);
+		!explosion(Color,StartsAtX+2,StartsAtY);
+		!explosion(Color,StartsAtX+2,StartsAtY+1);
+		!explosion(Color,StartsAtX,StartsAtY+2);
+		!explosion(Color,StartsAtX+1,StartsAtY+2);
+		!explosion(Color,StartsAtX+2,StartsAtY+2);
+		!explosion(Color,StartsAtX+3,StartsAtY);
+		!explosion(Color,StartsAtX+3,StartsAtY+1);
+		!explosion(Color,StartsAtX+3,StartsAtY+2);
+		!explosion(Color,StartsAtX,StartsAtY+3);
+		!explosion(Color,StartsAtX+1,StartsAtY+3);
+		!explosion(Color,StartsAtX+2,StartsAtY+3);
+		!explosion(Color,StartsAtX+3,StartsAtY+3);
+		!explosion(Color,StartsAtX+4,StartsAtY);
+		!explosion(Color,StartsAtX+4,StartsAtY+1);
+		!explosion(Color,StartsAtX+4,StartsAtY+2);
+		!explosion(Color,StartsAtX+4,StartsAtY+3);
+		!explosion(Color,StartsAtX,StartsAtY+4);
+		!explosion(Color,StartsAtX+1,StartsAtY+4);
+		!explosion(Color,StartsAtX+2,StartsAtY+4);
+		!explosion(Color,StartsAtX+3,StartsAtY+4);
+		!explosion(Color,StartsAtX+4,StartsAtY+4).
+		
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Ct2"<-
+		delete(Color,StartsAtX,StartsAtY);
+		delete(Color,StartsAtX+1,StartsAtY);
+		delete(Color,StartsAtX,StartsAtY+1);
+		delete(Color,StartsAtX+1,StartsAtY+1);
+		delete(Color,StartsAtX+2,StartsAtY);
+		delete(Color,StartsAtX+2,StartsAtY+1);
+		delete(Color,StartsAtX,StartsAtY+2);
+		delete(Color,StartsAtX+1,StartsAtY+2);
+		delete(Color,StartsAtX+2,StartsAtY+2);
+		delete(Color,StartsAtX+3,StartsAtY);
+		delete(Color,StartsAtX+3,StartsAtY+1);
+		delete(Color,StartsAtX+3,StartsAtY+2);
+		delete(Color,StartsAtX,StartsAtY+3);
+		delete(Color,StartsAtX+1,StartsAtY+3);
+		delete(Color,StartsAtX+2,StartsAtY+3);
+		delete(Color,StartsAtX+3,StartsAtY+3);
+		delete(Color,StartsAtX+4,StartsAtY);
+		delete(Color,StartsAtX+4,StartsAtY+1);
+		delete(Color,StartsAtX+4,StartsAtY+2);
+		delete(Color,StartsAtX+4,StartsAtY+3);
+		delete(Color,StartsAtX,StartsAtY+4);
+		delete(Color,StartsAtX+1,StartsAtY+4);
+		delete(Color,StartsAtX+2,StartsAtY+4);
+		delete(Color,StartsAtX+3,StartsAtY+4);
+		delete(Color,StartsAtX+4,StartsAtY+4);
+		delete(Color,StartsAtX+5,StartsAtY);
+		delete(Color,StartsAtX+5,StartsAtY+1);
+		delete(Color,StartsAtX+5,StartsAtY+2);
+		delete(Color,StartsAtX+5,StartsAtY+3);
+		delete(Color,StartsAtX+5,StartsAtY+4);
+		delete(Color,StartsAtX,StartsAtY+5);
+		delete(Color,StartsAtX+1,StartsAtY+5);
+		delete(Color,StartsAtX+2,StartsAtY+5);
+		delete(Color,StartsAtX+3,StartsAtY+5);
+		delete(Color,StartsAtX++4,StartsAtY+5);
+		delete(Color,StartsAtX+5,StartsAtY+5);
+		delete(Color,StartsAtX+6,StartsAtY);
+		delete(Color,StartsAtX+6,StartsAtY+1);
+		delete(Color,StartsAtX+6,StartsAtY+2);
+		delete(Color,StartsAtX+6,StartsAtY+3);
+		delete(Color,StartsAtX+6,StartsAtY+4);
+		delete(Color,StartsAtX+6,StartsAtY+5);
+		delete(Color,StartsAtX,StartsAtY+6);
+		delete(Color,StartsAtX+1,StartsAtY+6);
+		delete(Color,StartsAtX+2,StartsAtY+6);
+		delete(Color,StartsAtX+3,StartsAtY+6);
+		delete(Color,StartsAtX+4,StartsAtY+6);
+		delete(Color,StartsAtX+5,StartsAtY+6);
+		delete(Color,StartsAtX+6,StartsAtY+6);
+		delete(Color,StartsAtX+7,StartsAtY);
+		delete(Color,StartsAtX+7,StartsAtY+1);
+		delete(Color,StartsAtX+7,StartsAtY+2);
+		delete(Color,StartsAtX+7,StartsAtY+3);
+		delete(Color,StartsAtX+7,StartsAtY+4);
+		delete(Color,StartsAtX+7,StartsAtY+5);
+		delete(Color,StartsAtX+7,StartsAtY+6);
+		delete(Color,StartsAtX,StartsAtY+7);
+		delete(Color,StartsAtX+2,StartsAtY+7);
+		delete(Color,StartsAtX+3,StartsAtY+7);
+		delete(Color,StartsAtX+4,StartsAtY+7);
+		delete(Color,StartsAtX+5,StartsAtY+7);
+		delete(Color,StartsAtX+6,StartsAtY+7);
+		delete(Color,StartsAtX+7,StartsAtY+7);
+		delete(Color,StartsAtX+8,StartsAtY);
+		delete(Color,StartsAtX+8,StartsAtY+1);
+		delete(Color,StartsAtX+8,StartsAtY+2);
+		delete(Color,StartsAtX+8,StartsAtY+3);
+		delete(Color,StartsAtX+8,StartsAtY+4);
+		delete(Color,StartsAtX+8,StartsAtY+5);
+		delete(Color,StartsAtX+8,StartsAtY+6);
+		delete(Color,StartsAtX+8,StartsAtY+7);
+		delete(Color,StartsAtX,StartsAtY+8);
+		delete(Color,StartsAtX+1,StartsAtY+8);
+		delete(Color,StartsAtX+2,StartsAtY+8);
+		delete(Color,StartsAtX+3,StartsAtY+8);
+		delete(Color,StartsAtX+4,StartsAtY+8);
+		delete(Color,StartsAtX+5,StartsAtY+8);
+		delete(Color,StartsAtX+6,StartsAtY+8);
+		delete(Color,StartsAtX+7,StartsAtY+8);
+		delete(Color,StartsAtX+8,StartsAtY+8);
+		delete(Color,StartsAtX+9,StartsAtY);
+		delete(Color,StartsAtX+9,StartsAtY+1);
+		delete(Color,StartsAtX+9,StartsAtY+2);
+		delete(Color,StartsAtX+9,StartsAtY+3);
+		delete(Color,StartsAtX+9,StartsAtY+4);
+		delete(Color,StartsAtX+9,StartsAtY+5);
+		delete(Color,StartsAtX+9,StartsAtY+6);
+		delete(Color,StartsAtX+9,StartsAtY+7);
+		delete(Color,StartsAtX+9,StartsAtY+8);
+		delete(Color,StartsAtX,StartsAtY+9);
+		delete(Color,StartsAtX+1,StartsAtY+9);
+		delete(Color,StartsAtX+2,StartsAtY+9);
+		delete(Color,StartsAtX+3,StartsAtY+9);
+		delete(Color,StartsAtX+4,StartsAtY+9);
+		delete(Color,StartsAtX+5,StartsAtY+9);
+		delete(Color,StartsAtX+6,StartsAtY+9);
+		delete(Color,StartsAtX+7,StartsAtY+9);
+		delete(Color,StartsAtX+8,StartsAtY+9);
+		delete(Color,StartsAtX+9,StartsAtY+9);
+
+		
+		
+		!explosion(Color,StartsAtX,StartsAtY);
+		!explosion(Color,StartsAtX+1,StartsAtY);
+		!explosion(Color,StartsAtX,StartsAtY+1);
+		!explosion(Color,StartsAtX+1,StartsAtY+1);
+		!explosion(Color,StartsAtX+2,StartsAtY);
+		!explosion(Color,StartsAtX+2,StartsAtY+1);
+		!explosion(Color,StartsAtX,StartsAtY+2);
+		!explosion(Color,StartsAtX+1,StartsAtY+2);
+		!explosion(Color,StartsAtX+2,StartsAtY+2);
+		!explosion(Color,StartsAtX+3,StartsAtY);
+		!explosion(Color,StartsAtX+3,StartsAtY+1);
+		!explosion(Color,StartsAtX+3,StartsAtY+2);
+		!explosion(Color,StartsAtX,StartsAtY+3);
+		!explosion(Color,StartsAtX+1,StartsAtY+3);
+		!explosion(Color,StartsAtX+2,StartsAtY+3);
+		!explosion(Color,StartsAtX+3,StartsAtY+3);
+		!explosion(Color,StartsAtX+4,StartsAtY);
+		!explosion(Color,StartsAtX+4,StartsAtY+1);
+		!explosion(Color,StartsAtX+4,StartsAtY+2);
+		!explosion(Color,StartsAtX+4,StartsAtY+3);
+		!explosion(Color,StartsAtX,StartsAtY+4);
+		!explosion(Color,StartsAtX+1,StartsAtY+4);
+		!explosion(Color,StartsAtX+2,StartsAtY+4);
+		!explosion(Color,StartsAtX+3,StartsAtY+4);
+		!explosion(Color,StartsAtX+4,StartsAtY+4);
+		!explosion(Color,StartsAtX+5,StartsAtY);
+		!explosion(Color,StartsAtX+5,StartsAtY+1);
+		!explosion(Color,StartsAtX+5,StartsAtY+2);
+		!explosion(Color,StartsAtX+5,StartsAtY+3);
+		!explosion(Color,StartsAtX+5,StartsAtY+4);
+		!explosion(Color,StartsAtX,StartsAtY+5);
+		!explosion(Color,StartsAtX+1,StartsAtY+5);
+		!explosion(Color,StartsAtX+2,StartsAtY+5);
+		!explosion(Color,StartsAtX+3,StartsAtY+5);
+		!explosion(Color,StartsAtX++4,StartsAtY+5);
+		!explosion(Color,StartsAtX+5,StartsAtY+5);
+		!explosion(Color,StartsAtX+6,StartsAtY);
+		!explosion(Color,StartsAtX+6,StartsAtY+1);
+		!explosion(Color,StartsAtX+6,StartsAtY+2);
+		!explosion(Color,StartsAtX+6,StartsAtY+3);
+		!explosion(Color,StartsAtX+6,StartsAtY+4);
+		!explosion(Color,StartsAtX+6,StartsAtY+5);
+		!explosion(Color,StartsAtX,StartsAtY+6);
+		!explosion(Color,StartsAtX+1,StartsAtY+6);
+		!explosion(Color,StartsAtX+2,StartsAtY+6);
+		!explosion(Color,StartsAtX+3,StartsAtY+6);
+		!explosion(Color,StartsAtX+4,StartsAtY+6);
+		!explosion(Color,StartsAtX+5,StartsAtY+6);
+		!explosion(Color,StartsAtX+6,StartsAtY+6);
+		!explosion(Color,StartsAtX+7,StartsAtY);
+		!explosion(Color,StartsAtX+7,StartsAtY+1);
+		!explosion(Color,StartsAtX+7,StartsAtY+2);
+		!explosion(Color,StartsAtX+7,StartsAtY+3);
+		!explosion(Color,StartsAtX+7,StartsAtY+4);
+		!explosion(Color,StartsAtX+7,StartsAtY+5);
+		!explosion(Color,StartsAtX+7,StartsAtY+6);
+		!explosion(Color,StartsAtX,StartsAtY+7);
+		!explosion(Color,StartsAtX+2,StartsAtY+7);
+		!explosion(Color,StartsAtX+3,StartsAtY+7);
+		!explosion(Color,StartsAtX+4,StartsAtY+7);
+		!explosion(Color,StartsAtX+5,StartsAtY+7);
+		!explosion(Color,StartsAtX+6,StartsAtY+7);
+		!explosion(Color,StartsAtX+7,StartsAtY+7);
+		!explosion(Color,StartsAtX+8,StartsAtY);
+		!explosion(Color,StartsAtX+8,StartsAtY+1);
+		!explosion(Color,StartsAtX+8,StartsAtY+2);
+		!explosion(Color,StartsAtX+8,StartsAtY+3);
+		!explosion(Color,StartsAtX+8,StartsAtY+4);
+		!explosion(Color,StartsAtX+8,StartsAtY+5);
+		!explosion(Color,StartsAtX+8,StartsAtY+6);
+		!explosion(Color,StartsAtX+8,StartsAtY+7);
+		!explosion(Color,StartsAtX,StartsAtY+8);
+		!explosion(Color,StartsAtX+1,StartsAtY+8);
+		!explosion(Color,StartsAtX+2,StartsAtY+8);
+		!explosion(Color,StartsAtX+3,StartsAtY+8);
+		!explosion(Color,StartsAtX+4,StartsAtY+8);
+		!explosion(Color,StartsAtX+5,StartsAtY+8);
+		!explosion(Color,StartsAtX+6,StartsAtY+8);
+		!explosion(Color,StartsAtX+7,StartsAtY+8);
+		!explosion(Color,StartsAtX+8,StartsAtY+8);
+		!explosion(Color,StartsAtX+9,StartsAtY);
+		!explosion(Color,StartsAtX+9,StartsAtY+1);
+		!explosion(Color,StartsAtX+9,StartsAtY+2);
+		!explosion(Color,StartsAtX+9,StartsAtY+3);
+		!explosion(Color,StartsAtX+9,StartsAtY+4);
+		!explosion(Color,StartsAtX+9,StartsAtY+5);
+		!explosion(Color,StartsAtX+9,StartsAtY+6);
+		!explosion(Color,StartsAtX+9,StartsAtY+7);
+		!explosion(Color,StartsAtX+9,StartsAtY+8);
+		!explosion(Color,StartsAtX,StartsAtY+9);
+		!explosion(Color,StartsAtX+1,StartsAtY+9);
+		!explosion(Color,StartsAtX+2,StartsAtY+9);
+		!explosion(Color,StartsAtX+3,StartsAtY+9);
+		!explosion(Color,StartsAtX+4,StartsAtY+9);
+		!explosion(Color,StartsAtX+5,StartsAtY+9);
+		!explosion(Color,StartsAtX+6,StartsAtY+9);
+		!explosion(Color,StartsAtX+7,StartsAtY+9);
+		!explosion(Color,StartsAtX+8,StartsAtY+9);
+		!explosion(Color,StartsAtX+9,StartsAtY+9);
+
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "IpGs"<-
+
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "CoGs"<-
+
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "IpCo"<-
+
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "IpCt"<-
+
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "GsCt"<-
+
++!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "CoCt"<-
 
 +!handleT(Color,StartsAtX,StartsAtY,Direction,Pattern) : Direction = "standing" <-
 	delete(Color,StartsAtX,StartsAtY);
@@ -992,6 +1551,7 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 	!explosion(StartsAtX,StartsAtY+2);
 	!explosion(StartsAtX-1,StartsAtY+1);
 	!explosion(StartsAtX-2,StartsAtY+1).
+
 
 
 // Establece la celda como movida para generar sobre ella la ficha especial cuando 
