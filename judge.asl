@@ -70,16 +70,16 @@ specialSteak("5inLineH",ct).
 specialSteak("5inLineW",ct).
 specialSteak("Square",gs).
 specialSteak("T",co).
-specialSteak("2IP",ip2).
-specialSteak("2GS",gs2).
-specialSteak("2CO",co2).
-specialSteak("2CT",ct2).
-specialSteak("IPGS",ipgs).
-specialSteak("COGS",cogs).
-specialSteak("IPCO",ipco).
-specialSteak("IPCT",ipct).
-specialSteak("GSCT",gsct).
-specialSteak("COCT",coct).
+specialSteak("Ip2",ip2).
+specialSteak("Gs2",gs2).
+specialSteak("Co2",co2).
+specialSteak("Ct2",ct2).
+specialSteak("IpGs",ipgs).
+specialSteak("CoGs",cogs).
+specialSteak("IpCo",ipco).
+specialSteak("IpCt",ipct).
+specialSteak("GsCt",gsct).
+specialSteak("CoCt",coct).
 
 
 //Puntos por generacion de ficha
@@ -134,11 +134,11 @@ nextPosition(P1,P2,Dir,NX,NY):-
 //AQUI NO SE SI AÑADIR TIPO Y QUEDARIA LA FUNCION ASI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //comprobarPatrones(Color,Tipo,X,Y,StartsAtX,StartAtY,Direction,Pattern)!!!!!!!!!!!!!!
 comprobarPatrones(Color,X,Y,StartsAtX,StartAtY,Direction,Pattern) :-
-	((patternCoCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Coct" & Direction="none") |
+	((patternCoCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "CoCt" & Direction="none") |
 	(patternGsCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "GsCt" & Direction="none") |
 	(patternIpCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpCt" & Direction="none") |
 	(patternIpCo(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpCo" & Direction="none") |
-	(patternCogs(Color,X,Y,StartsAtX,StartAtY) & Pattern = "CoGs" & Direction="none") |
+	(patternCoGs(Color,X,Y,StartsAtX,StartAtY) & Pattern = "CoGs" & Direction="none") |
 	(patternIpGs(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpGs" & Direction="none") |
 	(patternCt2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Ct2" & Direction="none") |
 	(patternCo2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Co2" & Direction="none") |
