@@ -70,17 +70,16 @@ specialSteak("5inLineH",ct).
 specialSteak("5inLineW",ct).
 specialSteak("Square",gs).
 specialSteak("T",co).
-specialSteak("2IP",ip2).
-specialSteak("2GS",gs2).
-specialSteak("2CO",co2).
-specialSteak("2CT",ct2).
-specialSteak("IPGS",ipgs).
-specialSteak("COGS",cogs).
-specialSteak("IPCO",ipco).
-specialSteak("IPCT",ipct).
-specialSteak("GSCT",gsct).
-specialSteak("COCT",coct).
-
+/*specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).
+specialSteak("T",co).*/
 
 //Puntos por generacion de ficha
 generationPoints(in,0).
