@@ -70,16 +70,16 @@ specialSteak("5inLineH",ct).
 specialSteak("5inLineW",ct).
 specialSteak("Square",gs).
 specialSteak("T",co).
-specialSteak("2IP",ip2).
-specialSteak("2GS",gs2).
-specialSteak("2CO",co2).
-specialSteak("2CT",ct2).
-specialSteak("IPGS",ipgs).
-specialSteak("COGS",cogs).
-specialSteak("IPCO",ipco).
-specialSteak("IPCT",ipct).
-specialSteak("GSCT",gsct).
-specialSteak("COCT",coct).
+specialSteak("Ip2",ip2).
+specialSteak("Gs2",gs2).
+specialSteak("Co2",co2).
+specialSteak("Ct2",ct2).
+specialSteak("IpGs",ipgs).
+specialSteak("CoGs",cogs).
+specialSteak("IpCo",ipco).
+specialSteak("IpCt",ipct).
+specialSteak("GsCt",gsct).
+specialSteak("CoCt",coct).
 
 
 //Puntos por generacion de ficha
@@ -134,17 +134,7 @@ nextPosition(P1,P2,Dir,NX,NY):-
 //AQUI NO SE SI A�ADIR TIPO Y QUEDARIA LA FUNCION ASI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //comprobarPatrones(Color,Tipo,X,Y,StartsAtX,StartAtY,Direction,Pattern)!!!!!!!!!!!!!!
 comprobarPatrones(Color,X,Y,StartsAtX,StartAtY,Direction,Pattern) :-
-	((patternCoCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Coct" & Direction="none") |
-	(patternGsCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "GsCt" & Direction="none") |
-	(patternIpCt(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpCt" & Direction="none") |
-	(patternIpCo(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpCo" & Direction="none") |
-	(patternCogs(Color,X,Y,StartsAtX,StartAtY) & Pattern = "CoGs" & Direction="none") |
-	(patternIpGs(Color,X,Y,StartsAtX,StartAtY) & Pattern = "IpGs" & Direction="none") |
-	(patternCt2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Ct2" & Direction="none") |
-	(patternCo2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Co2" & Direction="none") |
-	(patternGs2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Gs2" & Direction="none") |
-	(patternIp2(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Ip2" & Direction="none")|
-	(pattern5inLineW(Color,X,Y,StartsAtX,StartAtY) & Pattern = "5inLineW" & Direction="none") |
+	((pattern5inLineW(Color,X,Y,StartsAtX,StartAtY) & Pattern = "5inLineW" & Direction="none") |
 	(pattern5inLineH(Color,X,Y,StartsAtX,StartAtY) & Pattern = "5inLineH" & Direction="none") |
 	(patternT(Color,X,Y,Direction) & Pattern = "T" & StartAtY = Y & StartsAtX = X) |
 	(patternSquare(Color,X,Y,StartsAtX,StartAtY) & Pattern = "Square" & Direction="none") |
@@ -154,251 +144,82 @@ comprobarPatrones(Color,X,Y,StartsAtX,StartAtY,Direction,Pattern) :-
 	(pattern3inLineH(Color,X,Y,StartsAtX,StartAtY) & Pattern = "3inLineH" & Direction="none") |
 	(Pattern = "none" & StartsAtX = X & StartAtY = Y & Direction="none")).
 	
-	//patternCoCt(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternCoCt(Color,X,Y,StartsAtX,StartAtY):-
+comprobarPatronesEsp(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern):-
+	((patternCoCt(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "CoCt")|
+	(patternGsCt(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "GsCt")|
+	(patternIpCt(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "IpCt")|
+	(patternIpCo(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "IpCo") |
+	(patternCoGs(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "CoGs") |
+	(patternIpGs(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "IpGs") |
+	(patternCt2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "Ct2") |
+	(patternCo2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "Co2") |
+	(patternGs2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "Gs2") |
+	(patternIp2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) & Pattern = "Ip2")).
+
 	
+	//patternCoCt
+	patternCoCt(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	((Tipo1 = "Co" & Tipo2 = "Ct") | ( Tipo2 = "Co" & Tipo1 = "Ct")).
 	
-	//patternGsCt(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternGsCt(Color,X,Y,StartsAtX,StartAtY):-
+	//patternGsCt
+	patternGsCt(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	((Tipo1 = "Gs" & Tipo2 = "Ct") | ( Tipo2 = "Gs" & Tipo1 = "Ct")).
 	
+	//patternIpCt
+	patternIpCt(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	((Tipo1 = "Ip" & Tipo2 = "Ct") | ( Tipo2 = "Ip" & Tipo1 = "Ct")).
 	
-	//patternIpCt(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternIpCt(Color,X,Y,StartsAtX,StartAtY):-
+	//patternIpCo
+	patternIpCo(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	((Tipo1 = "Co" & Tipo2 = "Ip") | ( Tipo2 = "Co" & Tipo1 = "Ip")).
 	
+	//patternCoGs
+	patternCoGs(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	((Tipo1 = "Co" & Tipo2 = "Gs") | ( Tipo2 = "Co" & Tipo1 = "Gs")).
 	
-	//patternIpCo(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternIpCo(Color,X,Y,StartsAtX,StartAtY):-
+	//patternIpGs
+	patternIpGs(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	((Tipo1 = "Ip" & Tipo2 = "Gs") | ( Tipo2 = "Ip" & Tipo1 = "Gs")).
 	
+	//patternCt2
+	patternCt2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	Tipo1 = "Ct" & 
+	Tipo2 = Tipo1.
 	
-	//patternCoGs(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternCoGs(Color,X,Y,StartsAtX,StartAtY):-
+	//patternCo2
+	patternCo2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	Tipo1 = "Co" & 
+	Tipo2 = Tipo1.
 	
+	//patternGs2
+	patternGs2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	Tipo1 = "Gs" & 
+	Tipo2 = Tipo1.
 	
-	//patternIpGs(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternIpGs(Color,X,Y,StartsAtX,StartAtY):-
-	
-	
-	//patternCt2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternCt2(Color,X,Y,StartsAtX,StartAtY):-
-	
-	
-	//patternCo2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternCo2(Color,X,Y,StartsAtX,StartAtY):-
-	/*(tablero(celda(X,Y+1,_),ficha(Color,_)) &	// (tablero(celda(X,Y+1,_),ficha(Color,Tipo)) &
-	StartAtY = Y & StartsAtX = X)|
-	(tablero(celda(X,Y-1,_),ficha(Color,_)) &  // (tablero(celda(X,Y-1,_),ficha(Color,Tipo)) &
-	StartAtY = Y & StartsAtX = X)|
-	(tablero(celda(X+1,Y,_),ficha(Color,_)) &	// (tablero(celda(X+1,Y+1,_),ficha(Color,Tipo)) &
-	StartAtY = Y & StartsAtX = X)|
-	(tablero(celda(X-1,Y,_),ficha(Color,_)) &	// (tablero(celda(X-1,Y,_),ficha(Color,Tipo)) &
-	StartAtY = Y & StartsAtX = X). esta mal*/
-	
-	//patternGs2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternGs2(Color,X,Y,StartsAtX,StartAtY):-
-	
-	
-	//patternIp2(Color,Tipo,X,Y,StartsAtX,StartAtY):-
-	patternIp2(Color,X,Y,StartsAtX,StartAtY):-
-	
-	(tablero(celda(X,Y+1,_),ficha(Color,_)) & // (tablero(celda(X,Y+1,_),ficha(Color,Tipo)) 
-	tablero(celda(X,Y+2,_),ficha(Color,_)) &
-	tablero(celda(X,Y+3,_),ficha(Color,_)) &
-	tablero(celda(X,Y+4,_),ficha(Color,_)) &
-	tablero(celda(X,Y+5,_),ficha(Color,_)) &
-	tablero(celda(X,Y+6,_),ficha(Color,_)) &
-	tablero(celda(X,Y+7,_),ficha(Color,_)) &
-	tablero(celda(X,Y+8,_),ficha(Color,_)) &
-	tablero(celda(X,Y+9,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-9,_),ficha(Color,_)) &
-	tablero(celda(X,Y-8,_),ficha(Color,_)) &
-	tablero(celda(X,Y-7,_),ficha(Color,_)) &
-	tablero(celda(X,Y-6,_),ficha(Color,_)) &
-	tablero(celda(X,Y-5,_),ficha(Color,_)) &
-	tablero(celda(X,Y-4,_),ficha(Color,_)) &
-	tablero(celda(X,Y-3,_),ficha(Color,_)) &
-	tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) & StartAtY = (Y-9) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-8,_),ficha(Color,_)) &
-	tablero(celda(X,Y-7,_),ficha(Color,_)) &
-	tablero(celda(X,Y-6,_),ficha(Color,_)) &
-	tablero(celda(X,Y-5,_),ficha(Color,_)) &
-	tablero(celda(X,Y-4,_),ficha(Color,_)) &
-	tablero(celda(X,Y-3,_),ficha(Color,_)) &
-	tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) & StartAtY = (Y-8) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-7,_),ficha(Color,_)) &
-	tablero(celda(X,Y-6,_),ficha(Color,_)) &
-	tablero(celda(X,Y-5,_),ficha(Color,_)) &
-	tablero(celda(X,Y-4,_),ficha(Color,_)) &
-	tablero(celda(X,Y-3,_),ficha(Color,_)) &
-	tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+2,_),ficha(Color,_)) & StartAtY = (Y-7) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-6,_),ficha(Color,_)) &
-	tablero(celda(X,Y-5,_),ficha(Color,_)) &
-	tablero(celda(X,Y-4,_),ficha(Color,_)) &
-	tablero(celda(X,Y-3,_),ficha(Color,_)) &
-	tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+3,_),ficha(Color,_)) & StartAtY = (Y-6) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-5,_),ficha(Color,_)) &
-	tablero(celda(X,Y-4,_),ficha(Color,_)) &
-	tablero(celda(X,Y-3,_),ficha(Color,_)) &
-	tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+3,_),ficha(Color,_)) &
-	tablero(celda(X,Y+4,_),ficha(Color,_)) & StartAtY = (Y-5) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-4,_),ficha(Color,_)) &
-	tablero(celda(X,Y-3,_),ficha(Color,_)) &
-	tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+3,_),ficha(Color,_)) &
-	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+5,_),ficha(Color,_)) & StartAtY = (Y-4) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-3,_),ficha(Color,_)) &
-	tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+3,_),ficha(Color,_)) &
-	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+5,_),ficha(Color,_)) &
-	tablero(celda(X,Y+6,_),ficha(Color,_)) & StartAtY = (Y-3) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-2,_),ficha(Color,_)) &
-	tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+3,_),ficha(Color,_)) &
-	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+5,_),ficha(Color,_)) &
-	tablero(celda(X,Y+6,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+7,_),ficha(Color,_)) & StartAtY = (Y-2) & StartsAtX = X) |
-	
-	(tablero(celda(X,Y-1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+1,_),ficha(Color,_)) &
-	tablero(celda(X,Y+2,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+3,_),ficha(Color,_)) &
-	tablero(celda(X,Y+4,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+5,_),ficha(Color,_)) &
-	tablero(celda(X,Y+6,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+7,_),ficha(Color,_)) & 
-	tablero(celda(X,Y+8,_),ficha(Color,_)) & StartAtY = (Y-1) & StartsAtX = X).
-	
-	(tablero(celda(X+1,Y,_),ficha(Color,_)) & // (tablero(celda(X,Y+1,_),ficha(Color,Tipo)) 
-	tablero(celda(X+2,Y,_),ficha(Color,_)) &
-	tablero(celda(X+3,Y,_),ficha(Color,_)) &
-	tablero(celda(X+4,Y,_),ficha(Color,_)) &
-	tablero(celda(X+5,Y,_),ficha(Color,_)) &
-	tablero(celda(X+6,Y,_),ficha(Color,_)) &
-	tablero(celda(X+7,Y,_),ficha(Color,_)) &
-	tablero(celda(X+8,Y,_),ficha(Color,_)) &
-	tablero(celda(X+9,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = X) |
-	
-	(tablero(celda(X-9,Y,_),ficha(Color,_)) &
-	tablero(celda(X-8,Y,_),ficha(Color,_)) &
-	tablero(celda(X-7,Y,_),ficha(Color,_)) &
-	tablero(celda(X-6,Y,_),ficha(Color,_)) &
-	tablero(celda(X-5,Y,_),ficha(Color,_)) &
-	tablero(celda(X-4,Y,_),ficha(Color,_)) &
-	tablero(celda(X-3,Y,_),ficha(Color,_)) &
-	tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) & StartAtY = Y) & StartsAtX = (X-9)) |
-	
-	(tablero(celda(X-8,Y,_),ficha(Color,_)) &
-	tablero(celda(X-7,Y,_),ficha(Color,_)) &
-	tablero(celda(X-6,Y,_),ficha(Color,_)) &
-	tablero(celda(X-5,Y,_),ficha(Color,_)) &
-	tablero(celda(X-4,Y,_),ficha(Color,_)) &
-	tablero(celda(X-3,Y,_),ficha(Color,_)) &
-	tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-8)) |
-	
-	(tablero(celda(X-7,Y,_),ficha(Color,_)) &
-	tablero(celda(X-6,Y,_),ficha(Color,_)) &
-	tablero(celda(X-5,Y,_),ficha(Color,_)) &
-	tablero(celda(X-4,Y,_),ficha(Color,_)) &
-	tablero(celda(X-3,Y,_),ficha(Color,_)) &
-	tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+2,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-7)) |
-	
-	(tablero(celda(X-6,Y,_),ficha(Color,_)) &
-	tablero(celda(X-5,Y,_),ficha(Color,_)) &
-	tablero(celda(X-4,Y,_),ficha(Color,_)) &
-	tablero(celda(X-3,Y,_),ficha(Color,_)) &
-	tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+3,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-6) |
-	
-	(tablero(celda(X-5,Y,_),ficha(Color,_)) &
-	tablero(celda(X-4,Y,_),ficha(Color,_)) &
-	tablero(celda(X-3,Y,_),ficha(Color,_)) &
-	tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+3,Y,_),ficha(Color,_)) &
-	tablero(celda(X+4,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-5) |
-	
-	(tablero(celda(X-4,Y,_),ficha(Color,_)) &
-	tablero(celda(X-3,Y,_),ficha(Color,_)) &
-	tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+3,Y,_),ficha(Color,_)) &
-	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+5,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-4) |
-	
-	(tablero(celda(X-3,Y,_),ficha(Color,_)) &
-	tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+3,Y,_),ficha(Color,_)) &
-	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+5,Y,_),ficha(Color,_)) &
-	tablero(celda(X+6,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-3)) |
-	
-	(tablero(celda(X-2,Y,_),ficha(Color,_)) &
-	tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+3,Y,_),ficha(Color,_)) &
-	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+5,Y,_),ficha(Color,_)) &
-	tablero(celda(X+6,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+7,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-2)) |
-	
-	(tablero(celda(X-1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+1,Y,_),ficha(Color,_)) &
-	tablero(celda(X+2,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+3,Y,_),ficha(Color,_)) &
-	tablero(celda(X+4,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+5,Y,_),ficha(Color,_)) &
-	tablero(celda(X+6,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+7,Y,_),ficha(Color,_)) & 
-	tablero(celda(X+8,Y,_),ficha(Color,_)) & StartAtY = Y & StartsAtX = (X-1)).
+	//patternIp2
+	patternIp2(Color,X1,Y1,X2,Y2,Tipo1,Tipo2):-
+	tablero(celda(X1,Y1),ficha(Color,Tipo1)) &
+	tablero(celda(X2,Y2),ficha(Color,Tipo2)) &
+	Tipo1 = "Ip" & 
+	Tipo2 = Tipo1.
 	
 	
 
@@ -974,6 +795,7 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 		-+dualExplosionFlag(0);
 		-+posicionesIntercambiadas(X1,Y1,X2,Y2);
 		!fullPatternMatch; //Deteccion y borrado de todos los patrones, aplicacion del algoritmo de caida y rellenado
+		!SpecPatternMatch;
 		//.wait(750);  //Ajusta la velocidad del intercambio de fichas
 		!countOwnedCells(player1); //Actualizacion de los marcadores de territorio en posesion
 		!countOwnedCells(player2);
@@ -994,10 +816,27 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 					!fullPatternMatch.
 +!fullPatternMatch.
 
+//Deteccion patrones especiales
++!SpecPatternMatch:				posicionesIntercambiadas(X1,Y1,X2,Y2)&
+								tablero(celda(X1,Y1,_),ficha(C,Tipo1)) & 
+								tablero(celda(X2,Y2,_),ficha(C,Tipo2)) &
+								comprobarPatronesEsp(C,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) &
+								Pattern="none"
+<-
+	!gravity;
+	!refill;
+	!handlePattern(C,StartsAtX,StartsAtY,Direction,Pattern); // Realiza la explosión de la figura y su propagación
+	.wait(350); // Ajusta el tiempo tras cada explosion
+	!setMovedSteak(X1,Y1,Pattern);
+	!setMovedSteak(X2,Y2,Pattern);
+	!generateSpecialSteak(Pattern,C).
++!SpecPatternMatch.
+
 
 
 +!patternMatchPosition(I,J): 	tablero(celda(I,J,_),ficha(C,_)) & 
-								comprobarPatrones(C,I,J,StartsAtX,StartsAtY,Direction,Pattern) & // Aqui se crea el patron de figura "Pattern" a explotar 
+								comprobarPatrones(C,I,J,StartsAtX,StartsAtY,Direction,Pattern) &
+								// Aqui se crea el patron de figura "Pattern" a explotar 
 								not Pattern = "none" & 
 								posicionesIntercambiadas(X1,Y1,X2,Y2)
 <-
