@@ -34,7 +34,7 @@ territorioInicial(5). //Territorio inicial asignado a cada jugador al comienzo d
 
 limitPoints(1,100). //Puntuacion a obtener para ganar un nivel
 limitPoints(2,200).
-limitPoints(3,200).
+limitPoints(3,250).
 
 points(1,player1,0). //Puntuacion de cada jugador en cada nivel [ points(nivel,jugador,puntos) ]
 points(1,player2,0).
@@ -70,16 +70,6 @@ specialSteak("5inLineH",ct).
 specialSteak("5inLineW",ct).
 specialSteak("Square",gs).
 specialSteak("T",co).
-specialSteak("Ip2",ip2).
-specialSteak("Gs2",gs2).
-specialSteak("Co2",co2).
-specialSteak("Ct2",ct2).
-specialSteak("IpGs",ipgs).
-specialSteak("CoGs",cogs).
-specialSteak("IpCo",ipco).
-specialSteak("IpCt",ipct).
-specialSteak("GsCt",gsct).
-specialSteak("CoCt",coct).
 
 
 //Puntos por generacion de ficha
@@ -401,7 +391,7 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 
 +!decideByTotalPoints(P1,P2) : P1 > P2 <- -+finalWinner(player1).
 +!decideByTotalPoints(P1,P2) : P2 > P1 <- -+finalWinner(player2).
-+!decideByTotalPoints(P1,P2) <- -+finalWinner(player1). //En ultimo caso, gana player1 por abrir la partida
++!decideByTotalPoints(P1,P2) <- -+finalWinner(player2). //En ultimo caso, gana player2
 
 //Finalizacion de la partida
 +!comienzoTurno : endGame(1) & levelWinner(1,W1) & levelWinner(2,W2) & levelWinner(3,W3)<-

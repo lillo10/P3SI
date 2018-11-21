@@ -795,7 +795,7 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 		-+dualExplosionFlag(0);
 		-+posicionesIntercambiadas(X1,Y1,X2,Y2);
 		!fullPatternMatch; //Deteccion y borrado de todos los patrones, aplicacion del algoritmo de caida y rellenado
-		!SpecPatternMatch;
+		!specPatternMatch;
 		//.wait(750);  //Ajusta la velocidad del intercambio de fichas
 		!countOwnedCells(player1); //Actualizacion de los marcadores de territorio en posesion
 		!countOwnedCells(player2);
@@ -817,7 +817,7 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 +!fullPatternMatch.
 
 //Deteccion patrones especiales
-+!SpecPatternMatch:				posicionesIntercambiadas(X1,Y1,X2,Y2)&
++!specPatternMatch:				posicionesIntercambiadas(X1,Y1,X2,Y2)&
 								tablero(celda(X1,Y1,_),ficha(C,Tipo1)) & 
 								tablero(celda(X2,Y2,_),ficha(C,Tipo2)) &
 								comprobarPatronesEsp(C,X1,Y1,X2,Y2,Tipo1,Tipo2,Pattern) &
@@ -825,12 +825,10 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 <-
 	!gravity;
 	!refill;
-	!handlePattern(C,StartsAtX,StartsAtY,Direction,Pattern); // Realiza la explosión de la figura y su propagación
-	.wait(350); // Ajusta el tiempo tras cada explosion
+	!handlePatternEs(C,X1,X2,Pattern); 
 	!setMovedSteak(X1,Y1,Pattern);
-	!setMovedSteak(X2,Y2,Pattern);
-	!generateSpecialSteak(Pattern,C).
-+!SpecPatternMatch.
+	!setMovedSteak(X2,Y2,Pattern).
++!specPatternMatch.
 
 
 
@@ -1036,316 +1034,265 @@ ownerName(Owner,OwnerName) :- Owner=1 & OwnerName=player1 | Owner=2 & OwnerName=
 +!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "T"<-
 	!handleT(Color,StartsAtX,StartsAtY,Direction,Pattern).
 
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Ip2"<-
-		delete(Color,StartsAtX,StartsAtY);
-		delete(Color,StartsAtX+1,StartsAtY);
-		delete(Color,StartsAtX+2,StartsAtY);
-		delete(Color,StartsAtX+3,StartsAtY);
-		delete(Color,StartsAtX+4,StartsAtY);
-		delete(Color,StartsAtX+5,StartsAtY);
-		delete(Color,StartsAtX+6,StartsAtY);
-		delete(Color,StartsAtX+7,StartsAtY);
-		delete(Color,StartsAtX+8,StartsAtY);
-		delete(Color,StartsAtX+9,StartsAtY);
-		delete(Color,StartsAtX,StartsAtY+1);
-		delete(Color,StartsAtX,StartsAtY+2);
-		delete(Color,StartsAtX,StartsAtY+3);
-		delete(Color,StartsAtX,StartsAtY)+4;
-		delete(Color,StartsAtX,StartsAtY+5);
-		delete(Color,StartsAtX,StartsAtY+6);
-		delete(Color,StartsAtX,StartsAtY+7);
-		delete(Color,StartsAtX,StartsAtY+8);
-		delete(Color,StartsAtX,StartsAtY+9);
++!handlePatternEs(Color,StartsAtX,StartsAtY,Pattern) : Pattern = "Ip2"<-
+		delete(_,0,tartsAtY);
+		delete(_,1,StartsAtY);
+		delete(_,2,StartsAtY);
+		delete(_,3,StartsAtY);
+		delete(_,4,StartsAtY);
+		delete(_,5,StartsAtY);
+		delete(_,6,StartsAtY);
+		delete(_,7,StartsAtY);
+		delete(_,8,StartsAtY);
+		delete(_,9,StartsAtY);
+		delete(_,StartsAtX,0);
+		delete(_,StartsAtX,1);
+		delete(_,StartsAtX,2);
+		delete(_,StartsAtX,3);
+		delete(_,StartsAtX,4);
+		delete(_,StartsAtX,5);
+		delete(_,StartsAtX,6);
+		delete(_,StartsAtX,7);
+		delete(_,StartsAtX,8);
+		delete(_,StartsAtX,9);
+		
+		!explosion(0,StartsAtY);
+		!explosion(1,StartsAtY);
+		!explosion(2,StartsAtY);
+		!explosion(3,StartsAtY);
+		!explosion(4,StartsAtY);
+		!explosion(5,StartsAtY);
+		!explosion(6,StartsAtY);
+		!explosion(7,StartsAtY);
+		!explosion(8,StartsAtY);
+		!explosion(9,StartsAtY);
+		!explosion(StartsAtX,0);
+		!explosion(StartsAtX,1);
+		!explosion(StartsAtX,2);
+		!explosion(StartsAtX,3);
+		!explosion(StartsAtX,4);
+		!explosion(StartsAtX,5);
+		!explosion(StartsAtX,6);
+		!explosion(StartsAtX,7);
+		!explosion(StartsAtX,8);
+		!explosion(StartsAtX,9).
+		
+
+
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "Co2"<-
+		delete(_,StartsAtX,StartsAtY);
+		delete(_,StartsAtX-2,StartsAtY+2);
+		delete(_,StartsAtX-1,StartsAtY+2);
+		delete(_,StartsAtX,StartsAtY+2);
+		delete(_,StartsAtX+1,StartsAtY+2);
+		delete(_,StartsAtX+2,StartsAtY+2);
+		delete(_,StartsAtX-2,StartsAtY+1);
+		delete(_,StartsAtX-1,StartsAtY+1);
+		delete(_,StartsAtX,StartsAtY+1);
+		delete(_,StartsAtX+1,StartsAtY+1);
+		delete(_,StartsAtX-2,StartsAtY);
+		delete(_,StartsAtX-1,StartsAtY);
+		delete(_,StartsAtX+1,StartsAtY);
+		delete(_,StartsAtX+2,StartsAtY);
+		delete(_,StartsAtX-2,StartsAtY-1);
+		delete(_,StartsAtX,StartsAtY-1);
+		delete(_,StartsAtX+1,StartsAtY-1);
+		delete(_,StartsAtX+2,StartsAtY-1);
+		delete(_,StartsAtX-2,StartsAtY-2);
+		delete(_,StartsAtX-1,StartsAtY-2);
+		delete(_,StartsAtX,StartsAtY-2);
+		delete(_,StartsAtX+1,StartsAtY-2);
+		delete(_,StartsAtX+2,StartsAtY-2);
 		
 		!explosion(StartsAtX,StartsAtY);
+		!explosion(StartsAtX-2,StartsAtY-2);
+		!explosion(StartsAtX-1,StartsAtY-2);
+		!explosion(StartsAtX,StartsAtY-2);
+		!explosion(StartsAtX+1,StartsAtY-2);
+		!explosion(StartsAtX+2,StartsAtY-2);
+		!explosion(StartsAtX-2,StartsAtY-1);
+		!explosion(StartsAtX-1,StartsAtY-1);
+		!explosion(StartsAtX,StartsAtY-1);
+		!explosion(StartsAtX+1,StartsAtY-1);
+		!explosion(StartsAtX+2,StartsAtY-1);
+		!explosion(StartsAtX-2,StartsAtY);
+		!explosion(StartsAtX-1,StartsAtY);
 		!explosion(StartsAtX+1,StartsAtY);
 		!explosion(StartsAtX+2,StartsAtY);
-		!explosion(StartsAtX+3,StartsAtY);
-		!explosion(StartsAtX+4,StartsAtY);
-		!explosion(StartsAtX+5,StartsAtY);
-		!explosion(StartsAtX+6,StartsAtY);
-		!explosion(StartsAtX+7,StartsAtY);
-		!explosion(StartsAtX+8,StartsAtY);
-		!explosion(StartsAtX+9,StartsAtY);
+		!explosion(StartsAtX-2,StartsAtY+1);
+		!explosion(StartsAtX-1,StartsAtY+1);
 		!explosion(StartsAtX,StartsAtY+1);
+		!explosion(StartsAtX+1,StartsAtY+1);
+		!explosion(StartsAtX+2,StartsAtY+1);
+		!explosion(StartsAtX-2,StartsAtY+2);
+		!explosion(StartsAtX-1,StartsAtY+2);
 		!explosion(StartsAtX,StartsAtY+2);
-		!explosion(StartsAtX,StartsAtY+3);
-		!explosion(StartsAtX,StartsAtY+4);
-		!explosion(StartsAtX,StartsAtY+5);
-		!explosion(StartsAtX,StartsAtY+6);
-		!explosion(StartsAtX,StartsAtY+7);
-		!explosion(StartsAtX,StartsAtY+8);
-		!explosion(StartsAtX,StartsAtY+9).
+		!explosion(StartsAtX+1,StartsAtY+2);
+		!explosion(StartsAtX+2,StartsAtY+2).
 		
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Gs2"<-
-
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Co2"<-
-		delete(Color,StartsAtX,StartsAtY);
-		delete(Color,StartsAtX+1,StartsAtY);
-		delete(Color,StartsAtX,StartsAtY+1);
-		delete(Color,StartsAtX+1,StartsAtY+1);
-		delete(Color,StartsAtX+2,StartsAtY);
-		delete(Color,StartsAtX+2,StartsAtY+1);
-		delete(Color,StartsAtX,StartsAtY+2);
-		delete(Color,StartsAtX+1,StartsAtY+2);
-		delete(Color,StartsAtX+2,StartsAtY+2);
-		delete(Color,StartsAtX+3,StartsAtY);
-		delete(Color,StartsAtX+3,StartsAtY+1);
-		delete(Color,StartsAtX+3,StartsAtY+2);
-		delete(Color,StartsAtX,StartsAtY+3);
-		delete(Color,StartsAtX+1,StartsAtY+3);
-		delete(Color,StartsAtX+2,StartsAtY+3);
-		delete(Color,StartsAtX+3,StartsAtY+3);
-		delete(Color,StartsAtX+4,StartsAtY);
-		delete(Color,StartsAtX+4,StartsAtY+1);
-		delete(Color,StartsAtX+4,StartsAtY+2);
-		delete(Color,StartsAtX+4,StartsAtY+3);
-		delete(Color,StartsAtX,StartsAtY+4);
-		delete(Color,StartsAtX+1,StartsAtY+4);
-		delete(Color,StartsAtX+2,StartsAtY+4);
-		delete(Color,StartsAtX+3,StartsAtY+4);
-		delete(Color,StartsAtX+4,StartsAtY+4);
-
-		!explosion(Color,StartsAtX,StartsAtY);
-		!explosion(Color,StartsAtX+1,StartsAtY);
-		!explosion(Color,StartsAtX,StartsAtY+1);
-		!explosion(Color,StartsAtX+1,StartsAtY+1);
-		!explosion(Color,StartsAtX+2,StartsAtY);
-		!explosion(Color,StartsAtX+2,StartsAtY+1);
-		!explosion(Color,StartsAtX,StartsAtY+2);
-		!explosion(Color,StartsAtX+1,StartsAtY+2);
-		!explosion(Color,StartsAtX+2,StartsAtY+2);
-		!explosion(Color,StartsAtX+3,StartsAtY);
-		!explosion(Color,StartsAtX+3,StartsAtY+1);
-		!explosion(Color,StartsAtX+3,StartsAtY+2);
-		!explosion(Color,StartsAtX,StartsAtY+3);
-		!explosion(Color,StartsAtX+1,StartsAtY+3);
-		!explosion(Color,StartsAtX+2,StartsAtY+3);
-		!explosion(Color,StartsAtX+3,StartsAtY+3);
-		!explosion(Color,StartsAtX+4,StartsAtY);
-		!explosion(Color,StartsAtX+4,StartsAtY+1);
-		!explosion(Color,StartsAtX+4,StartsAtY+2);
-		!explosion(Color,StartsAtX+4,StartsAtY+3);
-		!explosion(Color,StartsAtX,StartsAtY+4);
-		!explosion(Color,StartsAtX+1,StartsAtY+4);
-		!explosion(Color,StartsAtX+2,StartsAtY+4);
-		!explosion(Color,StartsAtX+3,StartsAtY+4);
-		!explosion(Color,StartsAtX+4,StartsAtY+4).
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "Ct2"<-
+		for ( .range(X,0,(N-1)) ) {
+									for ( .range(Y,0,(N-1)) ) {
+										delete(_,X,Y);
+										!explosion(X,Y);
+									}
+								}.
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "IpCo"<-
+		delete(_,0,StartsAtY+1);
+		delete(_,1,StartsAtY+1);
+		delete(_,2,StartsAtY+1);
+		delete(_,3,StartsAtY+1);
+		delete(_,4,StartsAtY+1);
+		delete(_,5,StartsAtY+1);
+		delete(_,6,StartsAtY+1);
+		delete(_,7,StartsAtY+1);
+		delete(_,8,StartsAtY+1);
+		delete(_,9,StartsAtY+1);
+		delete(_,0,StartsAtY);
+		delete(_,1,StartsAtY);
+		delete(_,2,StartsAtY);
+		delete(_,3,StartsAtY);
+		delete(_,4,StartsAtY);
+		delete(_,5,StartsAtY);
+		delete(_,6,StartsAtY);
+		delete(_,7,StartsAtY);
+		delete(_,8,StartsAtY);
+		delete(_,9,StartsAtY);
+		delete(_,0,StartsAtY-1);
+		delete(_,1,StartsAtY-1);
+		delete(_,2,StartsAtY-1);
+		delete(_,3,StartsAtY-1);
+		delete(_,4,StartsAtY-1);
+		delete(_,5,StartsAtY-1);
+		delete(_,6,StartsAtY-1);
+		delete(_,7,StartsAtY-1);
+		delete(_,8,StartsAtY-1);
+		delete(_,9,StartsAtY-1);
+		delete(_,StartsAtX,0);
+		delete(_,StartsAtX,1);
+		delete(_,StartsAtX,2);
+		delete(_,StartsAtX,3);
+		delete(_,StartsAtX,4);
+		delete(_,StartsAtX,5);
+		delete(_,StartsAtX,6);
+		delete(_,StartsAtX,7);
+		delete(_,StartsAtX,8);
+		delete(_,StartsAtX,9);
+		delete(_,StartsAtX+1,0);
+		delete(_,StartsAtX+1,1);
+		delete(_,StartsAtX+1,2);
+		delete(_,StartsAtX+1,3);
+		delete(_,StartsAtX+1,4);
+		delete(_,StartsAtX+1,5);
+		delete(_,StartsAtX+1,6);
+		delete(_,StartsAtX+1,7);
+		delete(_,StartsAtX+1,8);
+		delete(_,StartsAtX+1,9);
+		delete(_,StartsAtX-1,0);
+		delete(_,StartsAtX-1,1);
+		delete(_,StartsAtX-1,2);
+		delete(_,StartsAtX-1,3);
+		delete(_,StartsAtX-1,4);
+		delete(_,StartsAtX-1,5);
+		delete(_,StartsAtX-1,6);
+		delete(_,StartsAtX-1,7);
+		delete(_,StartsAtX-1,8);
+		delete(_,StartsAtX-1,9);
 		
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "Ct2"<-
-		delete(Color,StartsAtX,StartsAtY);
-		delete(Color,StartsAtX+1,StartsAtY);
-		delete(Color,StartsAtX,StartsAtY+1);
-		delete(Color,StartsAtX+1,StartsAtY+1);
-		delete(Color,StartsAtX+2,StartsAtY);
-		delete(Color,StartsAtX+2,StartsAtY+1);
-		delete(Color,StartsAtX,StartsAtY+2);
-		delete(Color,StartsAtX+1,StartsAtY+2);
-		delete(Color,StartsAtX+2,StartsAtY+2);
-		delete(Color,StartsAtX+3,StartsAtY);
-		delete(Color,StartsAtX+3,StartsAtY+1);
-		delete(Color,StartsAtX+3,StartsAtY+2);
-		delete(Color,StartsAtX,StartsAtY+3);
-		delete(Color,StartsAtX+1,StartsAtY+3);
-		delete(Color,StartsAtX+2,StartsAtY+3);
-		delete(Color,StartsAtX+3,StartsAtY+3);
-		delete(Color,StartsAtX+4,StartsAtY);
-		delete(Color,StartsAtX+4,StartsAtY+1);
-		delete(Color,StartsAtX+4,StartsAtY+2);
-		delete(Color,StartsAtX+4,StartsAtY+3);
-		delete(Color,StartsAtX,StartsAtY+4);
-		delete(Color,StartsAtX+1,StartsAtY+4);
-		delete(Color,StartsAtX+2,StartsAtY+4);
-		delete(Color,StartsAtX+3,StartsAtY+4);
-		delete(Color,StartsAtX+4,StartsAtY+4);
-		delete(Color,StartsAtX+5,StartsAtY);
-		delete(Color,StartsAtX+5,StartsAtY+1);
-		delete(Color,StartsAtX+5,StartsAtY+2);
-		delete(Color,StartsAtX+5,StartsAtY+3);
-		delete(Color,StartsAtX+5,StartsAtY+4);
-		delete(Color,StartsAtX,StartsAtY+5);
-		delete(Color,StartsAtX+1,StartsAtY+5);
-		delete(Color,StartsAtX+2,StartsAtY+5);
-		delete(Color,StartsAtX+3,StartsAtY+5);
-		delete(Color,StartsAtX++4,StartsAtY+5);
-		delete(Color,StartsAtX+5,StartsAtY+5);
-		delete(Color,StartsAtX+6,StartsAtY);
-		delete(Color,StartsAtX+6,StartsAtY+1);
-		delete(Color,StartsAtX+6,StartsAtY+2);
-		delete(Color,StartsAtX+6,StartsAtY+3);
-		delete(Color,StartsAtX+6,StartsAtY+4);
-		delete(Color,StartsAtX+6,StartsAtY+5);
-		delete(Color,StartsAtX,StartsAtY+6);
-		delete(Color,StartsAtX+1,StartsAtY+6);
-		delete(Color,StartsAtX+2,StartsAtY+6);
-		delete(Color,StartsAtX+3,StartsAtY+6);
-		delete(Color,StartsAtX+4,StartsAtY+6);
-		delete(Color,StartsAtX+5,StartsAtY+6);
-		delete(Color,StartsAtX+6,StartsAtY+6);
-		delete(Color,StartsAtX+7,StartsAtY);
-		delete(Color,StartsAtX+7,StartsAtY+1);
-		delete(Color,StartsAtX+7,StartsAtY+2);
-		delete(Color,StartsAtX+7,StartsAtY+3);
-		delete(Color,StartsAtX+7,StartsAtY+4);
-		delete(Color,StartsAtX+7,StartsAtY+5);
-		delete(Color,StartsAtX+7,StartsAtY+6);
-		delete(Color,StartsAtX,StartsAtY+7);
-		delete(Color,StartsAtX+2,StartsAtY+7);
-		delete(Color,StartsAtX+3,StartsAtY+7);
-		delete(Color,StartsAtX+4,StartsAtY+7);
-		delete(Color,StartsAtX+5,StartsAtY+7);
-		delete(Color,StartsAtX+6,StartsAtY+7);
-		delete(Color,StartsAtX+7,StartsAtY+7);
-		delete(Color,StartsAtX+8,StartsAtY);
-		delete(Color,StartsAtX+8,StartsAtY+1);
-		delete(Color,StartsAtX+8,StartsAtY+2);
-		delete(Color,StartsAtX+8,StartsAtY+3);
-		delete(Color,StartsAtX+8,StartsAtY+4);
-		delete(Color,StartsAtX+8,StartsAtY+5);
-		delete(Color,StartsAtX+8,StartsAtY+6);
-		delete(Color,StartsAtX+8,StartsAtY+7);
-		delete(Color,StartsAtX,StartsAtY+8);
-		delete(Color,StartsAtX+1,StartsAtY+8);
-		delete(Color,StartsAtX+2,StartsAtY+8);
-		delete(Color,StartsAtX+3,StartsAtY+8);
-		delete(Color,StartsAtX+4,StartsAtY+8);
-		delete(Color,StartsAtX+5,StartsAtY+8);
-		delete(Color,StartsAtX+6,StartsAtY+8);
-		delete(Color,StartsAtX+7,StartsAtY+8);
-		delete(Color,StartsAtX+8,StartsAtY+8);
-		delete(Color,StartsAtX+9,StartsAtY);
-		delete(Color,StartsAtX+9,StartsAtY+1);
-		delete(Color,StartsAtX+9,StartsAtY+2);
-		delete(Color,StartsAtX+9,StartsAtY+3);
-		delete(Color,StartsAtX+9,StartsAtY+4);
-		delete(Color,StartsAtX+9,StartsAtY+5);
-		delete(Color,StartsAtX+9,StartsAtY+6);
-		delete(Color,StartsAtX+9,StartsAtY+7);
-		delete(Color,StartsAtX+9,StartsAtY+8);
-		delete(Color,StartsAtX,StartsAtY+9);
-		delete(Color,StartsAtX+1,StartsAtY+9);
-		delete(Color,StartsAtX+2,StartsAtY+9);
-		delete(Color,StartsAtX+3,StartsAtY+9);
-		delete(Color,StartsAtX+4,StartsAtY+9);
-		delete(Color,StartsAtX+5,StartsAtY+9);
-		delete(Color,StartsAtX+6,StartsAtY+9);
-		delete(Color,StartsAtX+7,StartsAtY+9);
-		delete(Color,StartsAtX+8,StartsAtY+9);
-		delete(Color,StartsAtX+9,StartsAtY+9);
-
+		!explosion(0,StartsAtY+1);
+		!explosion(1,StartsAtY+1);
+		!explosion(2,StartsAtY+1);
+		!explosion(3,StartsAtY+1);
+		!explosion(4,StartsAtY+1);
+		!explosion(5,StartsAtY+1);
+		!explosion(6,StartsAtY+1);
+		!explosion(7,StartsAtY+1);
+		!explosion(8,StartsAtY+1);
+		!explosion(9,StartsAtY+1);
+		!explosion(0,StartsAtY);
+		!explosion(1,StartsAtY);
+		!explosion(2,StartsAtY);
+		!explosion(3,StartsAtY);
+		!explosion(4,StartsAtY);
+		!explosion(5,StartsAtY);
+		!explosion(6,StartsAtY);
+		!explosion(7,StartsAtY);
+		!explosion(8,StartsAtY);
+		!explosion(9,StartsAtY);
+		!explosion(0,StartsAtY-1);
+		!explosion(1,StartsAtY-1);
+		!explosion(2,StartsAtY-1);
+		!explosion(3,StartsAtY-1);
+		!explosion(4,StartsAtY-1);
+		!explosion(5,StartsAtY-1);
+		!explosion(6,StartsAtY-1);
+		!explosion(7,StartsAtY-1);
+		!explosion(8,StartsAtY-1);
+		!explosion(9,StartsAtY-1);
+		!explosion(StartsAtX,0);
+		!explosion(StartsAtX,1);
+		!explosion(StartsAtX,2);
+		!explosion(StartsAtX,3);
+		!explosion(StartsAtX,4);
+		!explosion(StartsAtX,5);
+		!explosion(StartsAtX,6);
+		!explosion(StartsAtX,7);
+		!explosion(StartsAtX,8);
+		!explosion(StartsAtX,9);
+		!explosion(StartsAtX+1,0);
+		!explosion(StartsAtX+1,1);
+		!explosion(StartsAtX+1,2);
+		!explosion(StartsAtX+1,3);
+		!explosion(StartsAtX+1,4);
+		!explosion(StartsAtX+1,5);
+		!explosion(StartsAtX+1,6);
+		!explosion(StartsAtX+1,7);
+		!explosion(StartsAtX+1,8);
+		!explosion(StartsAtX+1,9);
+		!explosion(StartsAtX-1,0);
+		!explosion(StartsAtX-1,1);
+		!explosion(StartsAtX-1,2);
+		!explosion(StartsAtX-1,3);
+		!explosion(StartsAtX-1,4);
+		!explosion(StartsAtX-1,5);
+		!explosion(StartsAtX-1,6);
+		!explosion(StartsAtX-1,7);
+		!explosion(StartsAtX-1,8);
+		!explosion(StartsAtX-1,9).
 		
-		
-		!explosion(Color,StartsAtX,StartsAtY);
-		!explosion(Color,StartsAtX+1,StartsAtY);
-		!explosion(Color,StartsAtX,StartsAtY+1);
-		!explosion(Color,StartsAtX+1,StartsAtY+1);
-		!explosion(Color,StartsAtX+2,StartsAtY);
-		!explosion(Color,StartsAtX+2,StartsAtY+1);
-		!explosion(Color,StartsAtX,StartsAtY+2);
-		!explosion(Color,StartsAtX+1,StartsAtY+2);
-		!explosion(Color,StartsAtX+2,StartsAtY+2);
-		!explosion(Color,StartsAtX+3,StartsAtY);
-		!explosion(Color,StartsAtX+3,StartsAtY+1);
-		!explosion(Color,StartsAtX+3,StartsAtY+2);
-		!explosion(Color,StartsAtX,StartsAtY+3);
-		!explosion(Color,StartsAtX+1,StartsAtY+3);
-		!explosion(Color,StartsAtX+2,StartsAtY+3);
-		!explosion(Color,StartsAtX+3,StartsAtY+3);
-		!explosion(Color,StartsAtX+4,StartsAtY);
-		!explosion(Color,StartsAtX+4,StartsAtY+1);
-		!explosion(Color,StartsAtX+4,StartsAtY+2);
-		!explosion(Color,StartsAtX+4,StartsAtY+3);
-		!explosion(Color,StartsAtX,StartsAtY+4);
-		!explosion(Color,StartsAtX+1,StartsAtY+4);
-		!explosion(Color,StartsAtX+2,StartsAtY+4);
-		!explosion(Color,StartsAtX+3,StartsAtY+4);
-		!explosion(Color,StartsAtX+4,StartsAtY+4);
-		!explosion(Color,StartsAtX+5,StartsAtY);
-		!explosion(Color,StartsAtX+5,StartsAtY+1);
-		!explosion(Color,StartsAtX+5,StartsAtY+2);
-		!explosion(Color,StartsAtX+5,StartsAtY+3);
-		!explosion(Color,StartsAtX+5,StartsAtY+4);
-		!explosion(Color,StartsAtX,StartsAtY+5);
-		!explosion(Color,StartsAtX+1,StartsAtY+5);
-		!explosion(Color,StartsAtX+2,StartsAtY+5);
-		!explosion(Color,StartsAtX+3,StartsAtY+5);
-		!explosion(Color,StartsAtX++4,StartsAtY+5);
-		!explosion(Color,StartsAtX+5,StartsAtY+5);
-		!explosion(Color,StartsAtX+6,StartsAtY);
-		!explosion(Color,StartsAtX+6,StartsAtY+1);
-		!explosion(Color,StartsAtX+6,StartsAtY+2);
-		!explosion(Color,StartsAtX+6,StartsAtY+3);
-		!explosion(Color,StartsAtX+6,StartsAtY+4);
-		!explosion(Color,StartsAtX+6,StartsAtY+5);
-		!explosion(Color,StartsAtX,StartsAtY+6);
-		!explosion(Color,StartsAtX+1,StartsAtY+6);
-		!explosion(Color,StartsAtX+2,StartsAtY+6);
-		!explosion(Color,StartsAtX+3,StartsAtY+6);
-		!explosion(Color,StartsAtX+4,StartsAtY+6);
-		!explosion(Color,StartsAtX+5,StartsAtY+6);
-		!explosion(Color,StartsAtX+6,StartsAtY+6);
-		!explosion(Color,StartsAtX+7,StartsAtY);
-		!explosion(Color,StartsAtX+7,StartsAtY+1);
-		!explosion(Color,StartsAtX+7,StartsAtY+2);
-		!explosion(Color,StartsAtX+7,StartsAtY+3);
-		!explosion(Color,StartsAtX+7,StartsAtY+4);
-		!explosion(Color,StartsAtX+7,StartsAtY+5);
-		!explosion(Color,StartsAtX+7,StartsAtY+6);
-		!explosion(Color,StartsAtX,StartsAtY+7);
-		!explosion(Color,StartsAtX+2,StartsAtY+7);
-		!explosion(Color,StartsAtX+3,StartsAtY+7);
-		!explosion(Color,StartsAtX+4,StartsAtY+7);
-		!explosion(Color,StartsAtX+5,StartsAtY+7);
-		!explosion(Color,StartsAtX+6,StartsAtY+7);
-		!explosion(Color,StartsAtX+7,StartsAtY+7);
-		!explosion(Color,StartsAtX+8,StartsAtY);
-		!explosion(Color,StartsAtX+8,StartsAtY+1);
-		!explosion(Color,StartsAtX+8,StartsAtY+2);
-		!explosion(Color,StartsAtX+8,StartsAtY+3);
-		!explosion(Color,StartsAtX+8,StartsAtY+4);
-		!explosion(Color,StartsAtX+8,StartsAtY+5);
-		!explosion(Color,StartsAtX+8,StartsAtY+6);
-		!explosion(Color,StartsAtX+8,StartsAtY+7);
-		!explosion(Color,StartsAtX,StartsAtY+8);
-		!explosion(Color,StartsAtX+1,StartsAtY+8);
-		!explosion(Color,StartsAtX+2,StartsAtY+8);
-		!explosion(Color,StartsAtX+3,StartsAtY+8);
-		!explosion(Color,StartsAtX+4,StartsAtY+8);
-		!explosion(Color,StartsAtX+5,StartsAtY+8);
-		!explosion(Color,StartsAtX+6,StartsAtY+8);
-		!explosion(Color,StartsAtX+7,StartsAtY+8);
-		!explosion(Color,StartsAtX+8,StartsAtY+8);
-		!explosion(Color,StartsAtX+9,StartsAtY);
-		!explosion(Color,StartsAtX+9,StartsAtY+1);
-		!explosion(Color,StartsAtX+9,StartsAtY+2);
-		!explosion(Color,StartsAtX+9,StartsAtY+3);
-		!explosion(Color,StartsAtX+9,StartsAtY+4);
-		!explosion(Color,StartsAtX+9,StartsAtY+5);
-		!explosion(Color,StartsAtX+9,StartsAtY+6);
-		!explosion(Color,StartsAtX+9,StartsAtY+7);
-		!explosion(Color,StartsAtX+9,StartsAtY+8);
-		!explosion(Color,StartsAtX,StartsAtY+9);
-		!explosion(Color,StartsAtX+1,StartsAtY+9);
-		!explosion(Color,StartsAtX+2,StartsAtY+9);
-		!explosion(Color,StartsAtX+3,StartsAtY+9);
-		!explosion(Color,StartsAtX+4,StartsAtY+9);
-		!explosion(Color,StartsAtX+5,StartsAtY+9);
-		!explosion(Color,StartsAtX+6,StartsAtY+9);
-		!explosion(Color,StartsAtX+7,StartsAtY+9);
-		!explosion(Color,StartsAtX+8,StartsAtY+9);
-		!explosion(Color,StartsAtX+9,StartsAtY+9);
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "IpCt"<-
+for ( .range(X,0,(N-1)) ) {
+									for ( .range(Y,0,(N-1)) ) {
+										if(tablero(celda(X,Y,_),ficha(Color,_))){
+											delete(Color,X,Y);
+											!explosion(X,Y);
+										}
+									}
+								}.
 
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "IpGs"<-
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "GsCt"<-
+for ( .range(X,0,(N-1)) ) {
+									for ( .range(Y,0,(N-1)) ) {
+										if(tablero(celda(X,Y,_),ficha(Color,_))){
+											delete(Color,X,Y);
+											!explosion(X,Y);
+										}
+									}
+								}.
 
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "CoGs"<-
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "CoCt"<-
+for ( .range(X,0,(N-1)) ) {
+									for ( .range(Y,0,(N-1)) ) {
+										if(tablero(celda(X,Y,_),ficha(Color,_))){
+											delete(Color,X,Y);
+											!explosion(X,Y);
+										}
+									}
+								}.
 
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "IpCo"<-
-
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "IpCt"<-
-
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "GsCt"<-
-
-+!handlePattern(Color,StartsAtX,StartsAtY,Direction,Pattern) : Pattern = "CoCt"<-
+/*+!handlePatternEs(Color,X,Y,Pattern) : Pattern = "Gs2"<-
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "IpGs"<-
++!handlePatternEs(Color,X,Y,Pattern) : Pattern = "CoGs"<-*/
 
 +!handleT(Color,StartsAtX,StartsAtY,Direction,Pattern) : Direction = "standing" <-
 	delete(Color,StartsAtX,StartsAtY);
